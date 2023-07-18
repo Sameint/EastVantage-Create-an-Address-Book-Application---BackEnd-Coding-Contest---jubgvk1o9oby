@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 /*
 You have to implement a Mongoose schema for an address that includes the name, address, and location of the address. The name and address fields are both required strings. The location field is an object that has two properties: type and coordinates. The type property is a required string and is set to 'Point'. The coordinates property is a required array of two numbers, representing the longitude and latitude of the address.
@@ -17,9 +17,28 @@ Here's a sample object for this schema:
 }
 */
 const addressSchema = new mongoose.Schema({
-    //Write your code here
+  name: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type:{
+    type: String,
+    enum: ['Point'],
+    required:true
+  },
+  coordinates: {
+    type:[Number],
+    required:true,
+  }
+}
 });
 
-const Address = mongoose.model('Address', addressSchema);
+addressSchema.index({ location: '2dsphere' });
+const Address = mongoose.model("Address", addressSchema);
 
 module.exports = Address;
